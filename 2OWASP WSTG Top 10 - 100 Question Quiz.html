@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OWASP WSTG Top 10 - 100 Question Quiz</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0d1117;
+            min-height: 100vh;
+            padding: 20px;
+            color: #f0f6fc;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #161b22;
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid #30363d;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+        }
+        h1 {
+            color: #58a6ff;
+            font-size: 32px;
+            text-align: center;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #8b949e;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .question-block {
+            background: #0d1117;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 14px;
+            border-left: 4px solid #58a6ff;
+            transition: border-color 0.3s;
+        }
+        .question-block.correct { border-left-color: #238636; }
+        .question-block.wrong { border-left-color: #da3633; }
+        .question-block.show-answer { border-left-color: #f0883e; }
+        .question-block p {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 15px;
+            color: #f0f6fc;
+        }
+        .options label {
+            display: block;
+            padding: 6px 12px;
+            margin: 3px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #c9d1d9;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .options label:hover { background: #21262d; }
+        .options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: #58a6ff;
+            transform: scale(1.1);
+        }
+        .options label.correct-answer {
+            background: #1a3a2a;
+            border: 1px solid #238636;
+        }
+        .options label.wrong-answer {
+            background: #3a1a1a;
+            border: 1px solid #da3633;
+        }
+        .options label.show-correct {
+            background: #1a3a2a;
+            border: 1px solid #f0883e;
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 140px;
+        }
+        .btn-submit {
+            background: #238636;
+            color: #fff;
+        }
+        .btn-submit:hover { background: #2ea043; }
+        .btn-answers {
+            background: #1f6feb;
+            color: #fff;
+        }
+        .btn-answers:hover { background: #388bfd; }
+        .btn-reset {
+            background: #21262d;
+            color: #c9d1d9;
+            border: 1px solid #30363d;
+        }
+        .btn-reset:hover { background: #30363d; }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .score {
+            margin-top: 24px;
+            padding: 20px;
+            background: #0d1117;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #58a6ff;
+            border: 1px solid #30363d;
+            display: none;
+        }
+        .score.show { display: block; }
+        .score span { color: #f0f6fc; }
+        .score .detail { font-size: 16px; font-weight: 400; color: #8b949e; margin-top: 8px; }
+        .progress {
+            text-align: center;
+            color: #8b949e;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 16px; }
+            h1 { font-size: 22px; }
+            .btn { font-size: 14px; padding: 10px 16px; min-width: 100px; }
+            .question-block p { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🛡️ OWASP WSTG Top 10 Quiz</h1>
+    <p class="subtitle">100 Questions — No Timer — Test Your Knowledge</p>
+    <div id="quiz"></div>
+    <div class="btn-group">
+        <button class="btn btn-submit" onclick="submitQuiz()">✅ Submit</button>
+        <button class="btn btn-answers" id="showAnswersBtn" onclick="showCorrectAnswers()" disabled>📖 Show Correct Answers</button>
+        <button class="btn btn-reset" onclick="resetQuiz()">🔄 Retake</button>
+    </div>
+    <div class="score" id="scoreDisplay"></div>
+</div>
+
+<script>
+// ============================================================
+//  100 QUESTIONS — OWASP WSTG TOP 10
+// ============================================================
+const questions = [
+    // ===== INFO GATHERING (1-10) =====
+    {
+        q: "What is the primary purpose of OWASP WSTG?",
+        o: ["A. Provide a comprehensive web security testing guide", "B. Develop new security tools", "C. Replace OWASP Top 10", "D. Certify security professionals"],
+        a: 0
+    },
+    {
+        q: "Which phase focuses on understanding application architecture?",
+        o: ["A. Information Gathering", "B. Configuration Testing", "C. Identity Testing", "D. Business Logic Testing"],
+        a: 0
+    },
+    {
+        q: "What is the goal of 'Configuration and Deployment Management Testing'?",
+        o: ["A. Identify security misconfigurations", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "Which testing category covers Identity Management?",
+        o: ["A. Identity Management Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Input Validation Testing"],
+        a: 0
+    },
+    {
+        q: "What is the purpose of 'Authentication Testing'?",
+        o: ["A. Verify authentication mechanisms are secure", "B. Test for SQL injection", "C. Test for file upload flaws", "D. Test network security"],
+        a: 0
+    },
+    {
+        q: "Which category tests for Insecure Direct Object References?",
+        o: ["A. Authorization Testing", "B. Session Management Testing", "C. Input Validation Testing", "D. Business Logic Testing"],
+        a: 0
+    },
+    {
+        q: "What does 'Session Management Testing' verify?",
+        o: ["A. Session tokens are secure and properly managed", "B. SQL injection", "C. XSS vulnerabilities", "D. File permissions"],
+        a: 0
+    },
+    {
+        q: "Which WSTG category covers Cross-Site Scripting?",
+        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Business Logic Testing"],
+        a: 0
+    },
+    {
+        q: "What is 'Business Logic Testing'?",
+        o: ["A. Testing for logic flaws that bypass security controls", "B. Testing network security", "C. Testing hardware security", "D. Testing physical security"],
+        a: 0
+    },
+    {
+        q: "Which category covers SQL injection?",
+        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Configuration Testing"],
+        a: 0
+    },
+
+    // ===== CONFIGURATION (11-20) =====
+    {
+        q: "What should be tested in 'Configuration and Deployment Management'?",
+        o: ["A. Secure defaults, patch levels, and environment separation", "B. Business logic flaws", "C. Authentication bypass", "D. Authorization bypass"],
+        a: 0
+    },
+    {
+        q: "Why is environment separation important?",
+        o: ["A. Prevents test data from affecting production", "B. Speeds up application", "C. Reduces server cost", "D. Improves UI design"],
+        a: 0
+    },
+    {
+        q: "What is a common configuration misconfiguration?",
+        o: ["A. Default credentials left unchanged", "B. Strong password policy", "C. Proper session timeout", "D. Valid SSL certificate"],
+        a: 0
+    },
+    {
+        q: "Which tool is commonly used for configuration testing?",
+        o: ["A. Nmap", "B. Burp Suite", "C. Wireshark", "D. Metasploit"],
+        a: 1
+    },
+    {
+        q: "What is the risk of exposed admin panels?",
+        o: ["A. Unauthorized access to sensitive functions", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What is a 'secure default' configuration?",
+        o: ["A. Least privilege by default", "B. Most features enabled", "C. Open to all users", "D. No authentication required"],
+        a: 0
+    },
+    {
+        q: "Why should debugging features be disabled in production?",
+        o: ["A. They expose sensitive information", "B. They slow down the application", "C. They cost money", "D. They look unprofessional"],
+        a: 0
+    },
+    {
+        q: "What is the purpose of patch management testing?",
+        o: ["A. Ensure known vulnerabilities are fixed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is a common misconfiguration in cloud environments?",
+        o: ["A. Publicly exposed storage buckets", "B. Proper IAM policies", "C. Strong encryption", "D. Multi-factor authentication"],
+        a: 0
+    },
+    {
+        q: "What should be tested in deployment configurations?",
+        o: ["A. Secure file permissions and environment variables", "B. Business logic", "C. Authentication bypass", "D. Authorization bypass"],
+        a: 0
+    },
+
+    // ===== IDENTITY MANAGEMENT (21-30) =====
+    {
+        q: "What is the goal of Identity Management Testing?",
+        o: ["A. Verify user identity lifecycle is properly managed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is credential lifecycle management?",
+        o: ["A. Creation, distribution, rotation, and revocation of credentials", "B. Managing server certificates", "C. Managing network traffic", "D. Managing user profiles"],
+        a: 0
+    },
+    {
+        q: "What is the risk of weak password policies?",
+        o: ["A. Account takeover via brute force", "B. Faster authentication", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What should be tested in identity management?",
+        o: ["A. Account lockout, password reset, and registration", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "Why is multi-factor authentication important?",
+        o: ["A. Adds an extra layer of security", "B. Speeds up login", "C. Reduces server load", "D. Improves UI design"],
+        a: 0
+    },
+    {
+        q: "What is a common weakness in password reset mechanisms?",
+        o: ["A. Predictable reset tokens", "B. Strong encryption", "C. Multi-factor authentication", "D. Secure email delivery"],
+        a: 0
+    },
+    {
+        q: "What is account takeover (ATO)?",
+        o: ["A. Attacker gains unauthorized access to a user account", "B. Legitimate user changes password", "C. System automatically logs out", "D. User creates new account"],
+        a: 0
+    },
+    {
+        q: "What should be tested in user registration?",
+        o: ["A. Username enumeration and weak verification", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "Why should account lockout policies exist?",
+        o: ["A. Prevent brute force attacks", "B. Speed up authentication", "C. Reduce server load", "D. Improve user experience"],
+        a: 0
+    },
+    {
+        q: "What is credential stuffing?",
+        o: ["A. Using leaked credentials from other breaches", "B. Creating new credentials", "C. Encrypting credentials", "D. Deleting credentials"],
+        a: 0
+    },
+
+    // ===== AUTHENTICATION (31-40) =====
+    {
+        q: "What is the goal of Authentication Testing?",
+        o: ["A. Verify authentication mechanisms cannot be bypassed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is a common authentication bypass technique?",
+        o: ["A. SQL injection on login fields", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is default credential testing?",
+        o: ["A. Testing for default usernames/passwords", "B. Testing for SQL injection", "C. Testing for XSS", "D. Testing business logic"],
+        a: 0
+    },
+    {
+        q: "What is the risk of weak authentication?",
+        o: ["A. Account takeover", "B. Faster login", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What should be tested in authentication flows?",
+        o: ["A. Login, logout, password reset, and remember-me", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is 'remember-me' functionality testing?",
+        o: ["A. Verify persistent cookies are secure", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is a common weakness in OAuth implementations?",
+        o: ["A. Missing state parameter (CSRF)", "B. Strong encryption", "C. Proper token validation", "D. Secure redirect URIs"],
+        a: 0
+    },
+    {
+        q: "What is the risk of weak password complexity?",
+        o: ["A. Brute force attacks", "B. Faster authentication", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What should be tested in multi-factor authentication?",
+        o: ["A. Bypass possibilities and rate limiting", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is session fixation?",
+        o: ["A. Attacker sets a known session ID to hijack a session", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+
+    // ===== AUTHORIZATION (41-50) =====
+    {
+        q: "What is the goal of Authorization Testing?",
+        o: ["A. Verify users cannot access unauthorized resources", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is IDOR (Insecure Direct Object Reference)?",
+        o: ["A. Accessing unauthorized resources by modifying object identifiers", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is privilege escalation?",
+        o: ["A. Gaining higher privileges than intended", "B. Losing privileges", "C. Normal user access", "D. Guest access"],
+        a: 0
+    },
+    {
+        q: "What is horizontal privilege escalation?",
+        o: ["A. Accessing another user's data of the same role", "B. Gaining admin privileges", "C. Guest access", "D. Anonymous access"],
+        a: 0
+    },
+    {
+        q: "What is vertical privilege escalation?",
+        o: ["A. Gaining admin or higher privileges", "B. Accessing another user's data", "C. Guest access", "D. Anonymous access"],
+        a: 0
+    },
+    {
+        q: "What should be tested in authorization?",
+        o: ["A. Role-based access control and tenant isolation", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is role-based access control (RBAC)?",
+        o: ["A. Access based on user roles", "B. Access based on IP address", "C. Access based on time", "D. Access based on device"],
+        a: 0
+    },
+    {
+        q: "What is path traversal?",
+        o: ["A. Accessing files outside the web root", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of broken access control?",
+        o: ["A. Unauthorized data exposure", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What should be tested in API authorization?",
+        o: ["A. Role verification and token scopes", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+
+    // ===== SESSION MANAGEMENT (51-60) =====
+    {
+        q: "What is the goal of Session Management Testing?",
+        o: ["A. Verify session tokens are secure and properly invalidated", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is a session token?",
+        o: ["A. Unique identifier sent with each request", "B. Database password", "C. Server encryption key", "D. API key"],
+        a: 0
+    },
+    {
+        q: "What is session hijacking?",
+        o: ["A. Stealing a session token to impersonate a user", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is session timeout?",
+        o: ["A. Automatic logout after inactivity", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What should be tested in session logout?",
+        o: ["A. Session is fully invalidated server-side", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is a session fixation attack?",
+        o: ["A. Attacker forces a known session ID on a user", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of predictable session IDs?",
+        o: ["A. Session hijacking", "B. Faster authentication", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What should be tested in session regeneration?",
+        o: ["A. New session ID after login and privilege changes", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is cookie security testing?",
+        o: ["A. Secure, HttpOnly, and SameSite attributes", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is a session token's lifespan?",
+        o: ["A. Should be finite with a strict timeout", "B. Forever", "C. Until browser closes", "D. Until user logs out"],
+        a: 0
+    },
+
+    // ===== INPUT VALIDATION (61-70) =====
+    {
+        q: "What is the goal of Input Validation Testing?",
+        o: ["A. Verify all user input is validated server-side", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is SQL injection?",
+        o: ["A. Injecting SQL queries to manipulate databases", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is XSS (Cross-Site Scripting)?",
+        o: ["A. Injecting malicious scripts into web pages", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is command injection?",
+        o: ["A. Executing system commands via user input", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of weak input validation?",
+        o: ["A. Full system compromise", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What is reflected XSS?",
+        o: ["A. Malicious script included in a response", "B. Stored in a database", "C. DOM-based", "D. Client-side"],
+        a: 0
+    },
+    {
+        q: "What is stored XSS?",
+        o: ["A. Malicious script stored on the server", "B. Reflected in a response", "C. DOM-based", "D. Client-side"],
+        a: 0
+    },
+    {
+        q: "What is DOM-based XSS?",
+        o: ["A. Client-side vulnerability in DOM manipulation", "B. Reflected in a response", "C. Stored on the server", "D. Client-side"],
+        a: 0
+    },
+    {
+        q: "What is Server-Side Request Forgery (SSRF)?",
+        o: ["A. Forcing the server to make requests to internal resources", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of insecure deserialization?",
+        o: ["A. Remote code execution", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+
+    // ===== BUSINESS LOGIC (71-80) =====
+    {
+        q: "What is the goal of Business Logic Testing?",
+        o: ["A. Verify application logic cannot be manipulated", "B. Test for SQL injection", "C. Test for XSS", "D. Test configuration"],
+        a: 0
+    },
+    {
+        q: "What is a business logic flaw?",
+        o: ["A. Application does not enforce intended rules", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is price manipulation?",
+        o: ["A. Modifying product prices in requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is a race condition?",
+        o: ["A. Multiple requests cause inconsistent state", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of business logic flaws?",
+        o: ["A. Financial loss and data exposure", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What is a workflow bypass?",
+        o: ["A. Skipping steps in a business process", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is parameter manipulation in business logic?",
+        o: ["A. Modifying parameters to change behavior", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is insufficient anti-automation?",
+        o: ["A. Lacking protection against automated attacks", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is a coupon abuse vulnerability?",
+        o: ["A. Using valid coupons with invalid parameters", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of insufficient order validation?",
+        o: ["A. Free or discounted products", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+
+    // ===== CLIENT-SIDE TESTING (81-90) =====
+    {
+        q: "What is the goal of Client-Side Testing?",
+        o: ["A. Verify client-side controls cannot be bypassed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is client-side validation?",
+        o: ["A. Validation performed in the browser", "B. Server-side validation", "C. Database validation", "D. Network validation"],
+        a: 0
+    },
+    {
+        q: "What is the risk of relying on client-side validation?",
+        o: ["A. Easily bypassed by attackers", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What is JavaScript injection?",
+        o: ["A. Injecting malicious JavaScript into the page", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What should be tested in client-side components?",
+        o: ["A. Browser storage, form validation, and UI controls", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is Clickjacking?",
+        o: ["A. Tricking users into clicking hidden elements", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is Cross-Origin Resource Sharing (CORS) misconfiguration?",
+        o: ["A. Allowing unauthorized domains to access resources", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is HTML injection?",
+        o: ["A. Injecting arbitrary HTML into the page", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is WebSocket security testing?",
+        o: ["A. Verify WebSocket connections are secure", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is the risk of client-side data exposure?",
+        o: ["A. Sensitive data stored in browser storage", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+
+    // ===== API TESTING (91-100) =====
+    {
+        q: "What is the goal of API Testing?",
+        o: ["A. Verify APIs are secure from common vulnerabilities", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
+        a: 0
+    },
+    {
+        q: "What is a common API vulnerability?",
+        o: ["A. Broken object-level authorization (BOLA)", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is API rate limiting?",
+        o: ["A. Restricting the number of API requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is GraphQL introspection?",
+        o: ["A. Querying API schema to understand structure", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is mass assignment in APIs?",
+        o: ["A. Updating unintended fields via API requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What should be tested in API authentication?",
+        o: ["A. Token validation and key rotation", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    },
+    {
+        q: "What is an insecure API endpoint?",
+        o: ["A. Exposed without proper authentication", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is parameter pollution in APIs?",
+        o: ["A. Overriding parameters with multiple values", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 0
+    },
+    {
+        q: "What is the risk of API data exposure?",
+        o: ["A. Sensitive data leakage", "B. Faster application", "C. Better user experience", "D. Improved security"],
+        a: 0
+    },
+    {
+        q: "What is API versioning security?",
+        o: ["A. Testing all API versions for vulnerabilities", "B. Business logic", "C. Network security", "D. Database security"],
+        a: 0
+    }
+];
+
+let quizSubmitted = false;
+
+// ============================================================
+//  RENDER QUIZ
+// ============================================================
+function renderQuiz() {
+    const container = document.getElementById('quiz');
+    let html = `<div class="progress">${questions.length} Questions</div>`;
+    questions.forEach((q, index) => {
+        html += `<div class="question-block" id="q${index}">`;
+        html += `<p>${index+1}. ${q.q}</p>`;
+        html += `<div class="options" id="options${index}">`;
+        q.o.forEach((opt, oi) => {
+            html += `
+                <label id="label${index}_${oi}">
+                    <input type="radio" name="q${index}" value="${oi}">
+                    ${opt}
+                </label>
+            `;
+        });
+        html += `</div></div>`;
+    });
+    container.innerHTML = html;
+    document.getElementById('scoreDisplay').classList.remove('show');
+    document.getElementById('showAnswersBtn').disabled = true;
+    quizSubmitted = false;
+}
+
+// ============================================================
+//  SUBMIT QUIZ
+// ============================================================
+function submitQuiz() {
+    let score = 0;
+    let total = questions.length;
+    let allAnswered = true;
+
+    questions.forEach((q, index) => {
+        const selected = document.querySelector(`input[name="q${index}"]:checked`);
+        const block = document.getElementById(`q${index}`);
+        block.classList.remove('correct', 'wrong');
+
+        if (selected) {
+            const userAnswer = parseInt(selected.value);
+            if (userAnswer === q.a) {
+                score++;
+                block.classList.add('correct');
+            } else {
+                block.classList.add('wrong');
+                // Highlight the wrong answer they selected
+                document.getElementById(`label${index}_${userAnswer}`).classList.add('wrong-answer');
+            }
+        } else {
+            allAnswered = false;
+            block.style.borderLeftColor = '#da3633';
+        }
+    });
+
+    quizSubmitted = true;
+    document.getElementById('showAnswersBtn').disabled = false;
+
+    const scoreDiv = document.getElementById('scoreDisplay');
+    const percent = Math.round((score / total) * 100);
+    let emoji = percent === 100 ? '🎉' : percent >= 70 ? '💪' : '📚';
+    let msg = percent === 100 ? 'Perfect score! You\'re an OWASP WSTG expert!' :
+              percent >= 70 ? 'Great job! You know your OWASP WSTG well!' :
+              'Keep studying the OWASP WSTG — you\'ll get there!';
+
+    scoreDiv.innerHTML = `
+        <div>${emoji} You scored ${score} out of ${total} (${percent}%)</div>
+        <div class="detail">${msg}</div>
+        ${!allAnswered ? '<div class="detail" style="color:#da3633;">⚠️ Some questions were not answered</div>' : ''}
+        <div class="detail" style="color:#8b949e; margin-top:12px;">💡 Click "Show Correct Answers" to see the right answers</div>
+    `;
+    scoreDiv.classList.add('show');
+    scoreDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ============================================================
+//  SHOW CORRECT ANSWERS
+// ============================================================
+function showCorrectAnswers() {
+    if (!quizSubmitted) return;
+
+    questions.forEach((q, index) => {
+        const block = document.getElementById(`q${index}`);
+        const correctIndex = q.a;
+
+        // Highlight the correct answer in green
+        const correctLabel = document.getElementById(`label${index}_${correctIndex}`);
+        if (correctLabel) {
+            correctLabel.classList.add('show-correct');
+        }
+
+        // Add visual indicator to the question block
+        block.classList.add('show-answer');
+    });
+
+    document.getElementById('showAnswersBtn').disabled = true;
+    document.getElementById('showAnswersBtn').textContent = '✅ Answers Revealed';
+}
+
+// ============================================================
+//  RESET QUIZ
+// ============================================================
+function resetQuiz() {
+    renderQuiz();
+    document.getElementById('showAnswersBtn').textContent = '📖 Show Correct Answers';
+    document.getElementById('showAnswersBtn').disabled = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+renderQuiz();
+</script>
+</body>
+</html>
