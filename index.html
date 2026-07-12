@@ -163,6 +163,7 @@
 <script>
 // ============================================================
 //  100 QUESTIONS — OWASP WSTG TOP 10
+//  ✅ Correct answers RANDOMIZED across A, B, C, D
 // ============================================================
 const questions = [
     // ===== INFO GATHERING (1-10) =====
@@ -173,100 +174,100 @@ const questions = [
     },
     {
         q: "Which phase focuses on understanding application architecture?",
-        o: ["A. Information Gathering", "B. Configuration Testing", "C. Identity Testing", "D. Business Logic Testing"],
-        a: 0
+        o: ["A. Business Logic Testing", "B. Information Gathering", "C. Identity Testing", "D. Configuration Testing"],
+        a: 1
     },
     {
         q: "What is the goal of 'Configuration and Deployment Management Testing'?",
-        o: ["A. Identify security misconfigurations", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test business logic", "B. Test for SQL injection", "C. Identify security misconfigurations", "D. Test for XSS"],
+        a: 2
     },
     {
         q: "Which testing category covers Identity Management?",
-        o: ["A. Identity Management Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Input Validation Testing"],
-        a: 0
+        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Identity Management Testing"],
+        a: 3
     },
     {
         q: "What is the purpose of 'Authentication Testing'?",
-        o: ["A. Verify authentication mechanisms are secure", "B. Test for SQL injection", "C. Test for file upload flaws", "D. Test network security"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify authentication mechanisms are secure", "C. Test for file upload flaws", "D. Test network security"],
+        a: 1
     },
     {
         q: "Which category tests for Insecure Direct Object References?",
-        o: ["A. Authorization Testing", "B. Session Management Testing", "C. Input Validation Testing", "D. Business Logic Testing"],
+        o: ["A. Authorization Testing", "B. Input Validation Testing", "C. Session Management Testing", "D. Business Logic Testing"],
         a: 0
     },
     {
         q: "What does 'Session Management Testing' verify?",
-        o: ["A. Session tokens are secure and properly managed", "B. SQL injection", "C. XSS vulnerabilities", "D. File permissions"],
-        a: 0
+        o: ["A. SQL injection", "B. XSS vulnerabilities", "C. Session tokens are secure and properly managed", "D. File permissions"],
+        a: 2
     },
     {
         q: "Which WSTG category covers Cross-Site Scripting?",
-        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Business Logic Testing"],
-        a: 0
+        o: ["A. Authorization Testing", "B. Input Validation Testing", "C. Session Management Testing", "D. Business Logic Testing"],
+        a: 1
     },
     {
         q: "What is 'Business Logic Testing'?",
-        o: ["A. Testing for logic flaws that bypass security controls", "B. Testing network security", "C. Testing hardware security", "D. Testing physical security"],
-        a: 0
+        o: ["A. Testing network security", "B. Testing hardware security", "C. Testing physical security", "D. Testing for logic flaws that bypass security controls"],
+        a: 3
     },
     {
         q: "Which category covers SQL injection?",
-        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Session Management Testing", "D. Configuration Testing"],
+        o: ["A. Input Validation Testing", "B. Authorization Testing", "C. Configuration Testing", "D. Session Management Testing"],
         a: 0
     },
 
     // ===== CONFIGURATION (11-20) =====
     {
         q: "What should be tested in 'Configuration and Deployment Management'?",
-        o: ["A. Secure defaults, patch levels, and environment separation", "B. Business logic flaws", "C. Authentication bypass", "D. Authorization bypass"],
-        a: 0
+        o: ["A. Authentication bypass", "B. Business logic flaws", "C. Authorization bypass", "D. Secure defaults, patch levels, and environment separation"],
+        a: 3
     },
     {
         q: "Why is environment separation important?",
-        o: ["A. Prevents test data from affecting production", "B. Speeds up application", "C. Reduces server cost", "D. Improves UI design"],
-        a: 0
-    },
-    {
-        q: "What is a common configuration misconfiguration?",
-        o: ["A. Default credentials left unchanged", "B. Strong password policy", "C. Proper session timeout", "D. Valid SSL certificate"],
-        a: 0
-    },
-    {
-        q: "Which tool is commonly used for configuration testing?",
-        o: ["A. Nmap", "B. Burp Suite", "C. Wireshark", "D. Metasploit"],
+        o: ["A. Speeds up application", "B. Prevents test data from affecting production", "C. Reduces server cost", "D. Improves UI design"],
         a: 1
     },
     {
+        q: "What is a common configuration misconfiguration?",
+        o: ["A. Strong password policy", "B. Proper session timeout", "C. Valid SSL certificate", "D. Default credentials left unchanged"],
+        a: 3
+    },
+    {
+        q: "Which tool is commonly used for configuration testing?",
+        o: ["A. Nmap", "B. Metasploit", "C. Wireshark", "D. Burp Suite"],
+        a: 3
+    },
+    {
         q: "What is the risk of exposed admin panels?",
-        o: ["A. Unauthorized access to sensitive functions", "B. Faster application", "C. Better user experience", "D. Improved security"],
-        a: 0
+        o: ["A. Faster application", "B. Unauthorized access to sensitive functions", "C. Better user experience", "D. Improved security"],
+        a: 1
     },
     {
         q: "What is a 'secure default' configuration?",
-        o: ["A. Least privilege by default", "B. Most features enabled", "C. Open to all users", "D. No authentication required"],
-        a: 0
+        o: ["A. Most features enabled", "B. Least privilege by default", "C. Open to all users", "D. No authentication required"],
+        a: 1
     },
     {
         q: "Why should debugging features be disabled in production?",
-        o: ["A. They expose sensitive information", "B. They slow down the application", "C. They cost money", "D. They look unprofessional"],
-        a: 0
+        o: ["A. They slow down the application", "B. They expose sensitive information", "C. They cost money", "D. They look unprofessional"],
+        a: 1
     },
     {
         q: "What is the purpose of patch management testing?",
-        o: ["A. Ensure known vulnerabilities are fixed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Test for XSS", "C. Ensure known vulnerabilities are fixed", "D. Test business logic"],
+        a: 2
     },
     {
         q: "What is a common misconfiguration in cloud environments?",
-        o: ["A. Publicly exposed storage buckets", "B. Proper IAM policies", "C. Strong encryption", "D. Multi-factor authentication"],
-        a: 0
+        o: ["A. Proper IAM policies", "B. Publicly exposed storage buckets", "C. Strong encryption", "D. Multi-factor authentication"],
+        a: 1
     },
     {
         q: "What should be tested in deployment configurations?",
-        o: ["A. Secure file permissions and environment variables", "B. Business logic", "C. Authentication bypass", "D. Authorization bypass"],
-        a: 0
+        o: ["A. Business logic", "B. Authentication bypass", "C. Authorization bypass", "D. Secure file permissions and environment variables"],
+        a: 3
     },
 
     // ===== IDENTITY MANAGEMENT (21-30) =====
@@ -277,8 +278,8 @@ const questions = [
     },
     {
         q: "What is credential lifecycle management?",
-        o: ["A. Creation, distribution, rotation, and revocation of credentials", "B. Managing server certificates", "C. Managing network traffic", "D. Managing user profiles"],
-        a: 0
+        o: ["A. Managing server certificates", "B. Creation, distribution, rotation, and revocation of credentials", "C. Managing network traffic", "D. Managing user profiles"],
+        a: 1
     },
     {
         q: "What is the risk of weak password policies?",
@@ -287,45 +288,45 @@ const questions = [
     },
     {
         q: "What should be tested in identity management?",
-        o: ["A. Account lockout, password reset, and registration", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Account lockout, password reset, and registration", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "Why is multi-factor authentication important?",
-        o: ["A. Adds an extra layer of security", "B. Speeds up login", "C. Reduces server load", "D. Improves UI design"],
-        a: 0
+        o: ["A. Speeds up login", "B. Adds an extra layer of security", "C. Reduces server load", "D. Improves UI design"],
+        a: 1
     },
     {
         q: "What is a common weakness in password reset mechanisms?",
-        o: ["A. Predictable reset tokens", "B. Strong encryption", "C. Multi-factor authentication", "D. Secure email delivery"],
-        a: 0
+        o: ["A. Strong encryption", "B. Predictable reset tokens", "C. Multi-factor authentication", "D. Secure email delivery"],
+        a: 1
     },
     {
         q: "What is account takeover (ATO)?",
-        o: ["A. Attacker gains unauthorized access to a user account", "B. Legitimate user changes password", "C. System automatically logs out", "D. User creates new account"],
-        a: 0
+        o: ["A. Legitimate user changes password", "B. Attacker gains unauthorized access to a user account", "C. System automatically logs out", "D. User creates new account"],
+        a: 1
     },
     {
         q: "What should be tested in user registration?",
-        o: ["A. Username enumeration and weak verification", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Username enumeration and weak verification", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "Why should account lockout policies exist?",
-        o: ["A. Prevent brute force attacks", "B. Speed up authentication", "C. Reduce server load", "D. Improve user experience"],
-        a: 0
+        o: ["A. Speed up authentication", "B. Prevent brute force attacks", "C. Reduce server load", "D. Improve user experience"],
+        a: 1
     },
     {
         q: "What is credential stuffing?",
-        o: ["A. Using leaked credentials from other breaches", "B. Creating new credentials", "C. Encrypting credentials", "D. Deleting credentials"],
-        a: 0
+        o: ["A. Creating new credentials", "B. Using leaked credentials from other breaches", "C. Encrypting credentials", "D. Deleting credentials"],
+        a: 1
     },
 
     // ===== AUTHENTICATION (31-40) =====
     {
         q: "What is the goal of Authentication Testing?",
-        o: ["A. Verify authentication mechanisms cannot be bypassed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify authentication mechanisms cannot be bypassed", "C. Test for XSS", "D. Test business logic"],
+        a: 1
     },
     {
         q: "What is a common authentication bypass technique?",
@@ -334,8 +335,8 @@ const questions = [
     },
     {
         q: "What is default credential testing?",
-        o: ["A. Testing for default usernames/passwords", "B. Testing for SQL injection", "C. Testing for XSS", "D. Testing business logic"],
-        a: 0
+        o: ["A. Testing for SQL injection", "B. Testing for default usernames/passwords", "C. Testing for XSS", "D. Testing business logic"],
+        a: 1
     },
     {
         q: "What is the risk of weak authentication?",
@@ -344,8 +345,8 @@ const questions = [
     },
     {
         q: "What should be tested in authentication flows?",
-        o: ["A. Login, logout, password reset, and remember-me", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Network security", "C. Login, logout, password reset, and remember-me", "D. Database security"],
+        a: 2
     },
     {
         q: "What is 'remember-me' functionality testing?",
@@ -354,8 +355,8 @@ const questions = [
     },
     {
         q: "What is a common weakness in OAuth implementations?",
-        o: ["A. Missing state parameter (CSRF)", "B. Strong encryption", "C. Proper token validation", "D. Secure redirect URIs"],
-        a: 0
+        o: ["A. Strong encryption", "B. Missing state parameter (CSRF)", "C. Proper token validation", "D. Secure redirect URIs"],
+        a: 1
     },
     {
         q: "What is the risk of weak password complexity?",
@@ -364,8 +365,8 @@ const questions = [
     },
     {
         q: "What should be tested in multi-factor authentication?",
-        o: ["A. Bypass possibilities and rate limiting", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Bypass possibilities and rate limiting", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "What is session fixation?",
@@ -376,23 +377,23 @@ const questions = [
     // ===== AUTHORIZATION (41-50) =====
     {
         q: "What is the goal of Authorization Testing?",
-        o: ["A. Verify users cannot access unauthorized resources", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify users cannot access unauthorized resources", "C. Test for XSS", "D. Test business logic"],
+        a: 1
     },
     {
         q: "What is IDOR (Insecure Direct Object Reference)?",
-        o: ["A. Accessing unauthorized resources by modifying object identifiers", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Accessing unauthorized resources by modifying object identifiers", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is privilege escalation?",
-        o: ["A. Gaining higher privileges than intended", "B. Losing privileges", "C. Normal user access", "D. Guest access"],
-        a: 0
+        o: ["A. Losing privileges", "B. Gaining higher privileges than intended", "C. Normal user access", "D. Guest access"],
+        a: 1
     },
     {
         q: "What is horizontal privilege escalation?",
-        o: ["A. Accessing another user's data of the same role", "B. Gaining admin privileges", "C. Guest access", "D. Anonymous access"],
-        a: 0
+        o: ["A. Gaining admin privileges", "B. Accessing another user's data of the same role", "C. Guest access", "D. Anonymous access"],
+        a: 1
     },
     {
         q: "What is vertical privilege escalation?",
@@ -406,13 +407,13 @@ const questions = [
     },
     {
         q: "What is role-based access control (RBAC)?",
-        o: ["A. Access based on user roles", "B. Access based on IP address", "C. Access based on time", "D. Access based on device"],
-        a: 0
+        o: ["A. Access based on IP address", "B. Access based on user roles", "C. Access based on time", "D. Access based on device"],
+        a: 1
     },
     {
         q: "What is path traversal?",
-        o: ["A. Accessing files outside the web root", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Accessing files outside the web root", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is the risk of broken access control?",
@@ -421,8 +422,8 @@ const questions = [
     },
     {
         q: "What should be tested in API authorization?",
-        o: ["A. Role verification and token scopes", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Network security", "C. Database security", "D. Role verification and token scopes"],
+        a: 3
     },
 
     // ===== SESSION MANAGEMENT (51-60) =====
@@ -433,23 +434,23 @@ const questions = [
     },
     {
         q: "What is a session token?",
-        o: ["A. Unique identifier sent with each request", "B. Database password", "C. Server encryption key", "D. API key"],
-        a: 0
+        o: ["A. Database password", "B. Unique identifier sent with each request", "C. Server encryption key", "D. API key"],
+        a: 1
     },
     {
         q: "What is session hijacking?",
-        o: ["A. Stealing a session token to impersonate a user", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Stealing a session token to impersonate a user", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is session timeout?",
-        o: ["A. Automatic logout after inactivity", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Automatic logout after inactivity", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What should be tested in session logout?",
-        o: ["A. Session is fully invalidated server-side", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Session is fully invalidated server-side", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "What is a session fixation attack?",
@@ -458,18 +459,18 @@ const questions = [
     },
     {
         q: "What is the risk of predictable session IDs?",
-        o: ["A. Session hijacking", "B. Faster authentication", "C. Better user experience", "D. Improved security"],
-        a: 0
+        o: ["A. Faster authentication", "B. Session hijacking", "C. Better user experience", "D. Improved security"],
+        a: 1
     },
     {
         q: "What should be tested in session regeneration?",
-        o: ["A. New session ID after login and privilege changes", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Network security", "C. New session ID after login and privilege changes", "D. Database security"],
+        a: 2
     },
     {
         q: "What is cookie security testing?",
-        o: ["A. Secure, HttpOnly, and SameSite attributes", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Secure, HttpOnly, and SameSite attributes", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "What is a session token's lifespan?",
@@ -480,23 +481,23 @@ const questions = [
     // ===== INPUT VALIDATION (61-70) =====
     {
         q: "What is the goal of Input Validation Testing?",
-        o: ["A. Verify all user input is validated server-side", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify all user input is validated server-side", "C. Test for XSS", "D. Test business logic"],
+        a: 1
     },
     {
         q: "What is SQL injection?",
-        o: ["A. Injecting SQL queries to manipulate databases", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Injecting SQL queries to manipulate databases", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is XSS (Cross-Site Scripting)?",
-        o: ["A. Injecting malicious scripts into web pages", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Injecting malicious scripts into web pages", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is command injection?",
-        o: ["A. Executing system commands via user input", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Executing system commands via user input", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is the risk of weak input validation?",
@@ -505,23 +506,23 @@ const questions = [
     },
     {
         q: "What is reflected XSS?",
-        o: ["A. Malicious script included in a response", "B. Stored in a database", "C. DOM-based", "D. Client-side"],
-        a: 0
+        o: ["A. Stored in a database", "B. Malicious script included in a response", "C. DOM-based", "D. Client-side"],
+        a: 1
     },
     {
         q: "What is stored XSS?",
-        o: ["A. Malicious script stored on the server", "B. Reflected in a response", "C. DOM-based", "D. Client-side"],
-        a: 0
+        o: ["A. Reflected in a response", "B. Malicious script stored on the server", "C. DOM-based", "D. Client-side"],
+        a: 1
     },
     {
         q: "What is DOM-based XSS?",
-        o: ["A. Client-side vulnerability in DOM manipulation", "B. Reflected in a response", "C. Stored on the server", "D. Client-side"],
-        a: 0
+        o: ["A. Reflected in a response", "B. Stored on the server", "C. Client-side vulnerability in DOM manipulation", "D. Client-side"],
+        a: 2
     },
     {
         q: "What is Server-Side Request Forgery (SSRF)?",
-        o: ["A. Forcing the server to make requests to internal resources", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Forcing the server to make requests to internal resources", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is the risk of insecure deserialization?",
@@ -532,8 +533,8 @@ const questions = [
     // ===== BUSINESS LOGIC (71-80) =====
     {
         q: "What is the goal of Business Logic Testing?",
-        o: ["A. Verify application logic cannot be manipulated", "B. Test for SQL injection", "C. Test for XSS", "D. Test configuration"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify application logic cannot be manipulated", "C. Test for XSS", "D. Test configuration"],
+        a: 1
     },
     {
         q: "What is a business logic flaw?",
@@ -542,13 +543,13 @@ const questions = [
     },
     {
         q: "What is price manipulation?",
-        o: ["A. Modifying product prices in requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Modifying product prices in requests", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is a race condition?",
-        o: ["A. Multiple requests cause inconsistent state", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Multiple requests cause inconsistent state", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is the risk of business logic flaws?",
@@ -557,23 +558,23 @@ const questions = [
     },
     {
         q: "What is a workflow bypass?",
-        o: ["A. Skipping steps in a business process", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Skipping steps in a business process", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is parameter manipulation in business logic?",
-        o: ["A. Modifying parameters to change behavior", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Modifying parameters to change behavior", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is insufficient anti-automation?",
-        o: ["A. Lacking protection against automated attacks", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Lacking protection against automated attacks", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is a coupon abuse vulnerability?",
-        o: ["A. Using valid coupons with invalid parameters", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Using valid coupons with invalid parameters", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is the risk of insufficient order validation?",
@@ -584,13 +585,13 @@ const questions = [
     // ===== CLIENT-SIDE TESTING (81-90) =====
     {
         q: "What is the goal of Client-Side Testing?",
-        o: ["A. Verify client-side controls cannot be bypassed", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify client-side controls cannot be bypassed", "C. Test for XSS", "D. Test business logic"],
+        a: 1
     },
     {
         q: "What is client-side validation?",
-        o: ["A. Validation performed in the browser", "B. Server-side validation", "C. Database validation", "D. Network validation"],
-        a: 0
+        o: ["A. Server-side validation", "B. Validation performed in the browser", "C. Database validation", "D. Network validation"],
+        a: 1
     },
     {
         q: "What is the risk of relying on client-side validation?",
@@ -599,33 +600,33 @@ const questions = [
     },
     {
         q: "What is JavaScript injection?",
-        o: ["A. Injecting malicious JavaScript into the page", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Injecting malicious JavaScript into the page", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What should be tested in client-side components?",
-        o: ["A. Browser storage, form validation, and UI controls", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Browser storage, form validation, and UI controls", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "What is Clickjacking?",
-        o: ["A. Tricking users into clicking hidden elements", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Tricking users into clicking hidden elements", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is Cross-Origin Resource Sharing (CORS) misconfiguration?",
-        o: ["A. Allowing unauthorized domains to access resources", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Allowing unauthorized domains to access resources", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is HTML injection?",
-        o: ["A. Injecting arbitrary HTML into the page", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Injecting arbitrary HTML into the page", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is WebSocket security testing?",
-        o: ["A. Verify WebSocket connections are secure", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Verify WebSocket connections are secure", "C. Network security", "D. Database security"],
+        a: 1
     },
     {
         q: "What is the risk of client-side data exposure?",
@@ -636,28 +637,28 @@ const questions = [
     // ===== API TESTING (91-100) =====
     {
         q: "What is the goal of API Testing?",
-        o: ["A. Verify APIs are secure from common vulnerabilities", "B. Test for SQL injection", "C. Test for XSS", "D. Test business logic"],
-        a: 0
+        o: ["A. Test for SQL injection", "B. Verify APIs are secure from common vulnerabilities", "C. Test for XSS", "D. Test business logic"],
+        a: 1
     },
     {
         q: "What is a common API vulnerability?",
-        o: ["A. Broken object-level authorization (BOLA)", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Broken object-level authorization (BOLA)", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is API rate limiting?",
-        o: ["A. Restricting the number of API requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Restricting the number of API requests", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is GraphQL introspection?",
-        o: ["A. Querying API schema to understand structure", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Querying API schema to understand structure", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What is mass assignment in APIs?",
-        o: ["A. Updating unintended fields via API requests", "B. Strong password policy", "C. Multi-factor authentication", "D. Secure session tokens"],
-        a: 0
+        o: ["A. Strong password policy", "B. Updating unintended fields via API requests", "C. Multi-factor authentication", "D. Secure session tokens"],
+        a: 1
     },
     {
         q: "What should be tested in API authentication?",
@@ -681,8 +682,8 @@ const questions = [
     },
     {
         q: "What is API versioning security?",
-        o: ["A. Testing all API versions for vulnerabilities", "B. Business logic", "C. Network security", "D. Database security"],
-        a: 0
+        o: ["A. Business logic", "B. Testing all API versions for vulnerabilities", "C. Network security", "D. Database security"],
+        a: 1
     }
 ];
 
@@ -734,7 +735,6 @@ function submitQuiz() {
                 block.classList.add('correct');
             } else {
                 block.classList.add('wrong');
-                // Highlight the wrong answer they selected
                 document.getElementById(`label${index}_${userAnswer}`).classList.add('wrong-answer');
             }
         } else {
@@ -773,13 +773,11 @@ function showCorrectAnswers() {
         const block = document.getElementById(`q${index}`);
         const correctIndex = q.a;
 
-        // Highlight the correct answer in green
         const correctLabel = document.getElementById(`label${index}_${correctIndex}`);
         if (correctLabel) {
             correctLabel.classList.add('show-correct');
         }
 
-        // Add visual indicator to the question block
         block.classList.add('show-answer');
     });
 
