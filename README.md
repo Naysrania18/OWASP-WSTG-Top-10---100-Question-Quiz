@@ -8,8 +8,6 @@
 
 This is a **100-question interactive quiz** based on the **OWASP Web Security Testing Guide (WSTG) v4**. It's designed to help security professionals, penetration testers, and students test and reinforce their knowledge of web application security testing methodologies.
 
-The quiz covers all major WSTG categories with questions randomly distributed across A, B, C, and D options — providing a realistic and challenging testing experience.
-
 ---
 
 ## 🎯 Key Features
@@ -17,7 +15,6 @@ The quiz covers all major WSTG categories with questions randomly distributed ac
 | Feature | Description |
 |---------|-------------|
 | ✅ **100 Questions** | Comprehensive coverage of OWASP WSTG v4 |
-| ✅ **Randomized Correct Answers** | No patterns — truly tests your knowledge |
 | ✅ **Instant Scoring** | Submit and see your percentage immediately |
 | ✅ **Show Correct Answers** | Learn from mistakes by revealing correct answers |
 | ✅ **Retake Anytime** | Refresh to start over and improve your score |
@@ -46,14 +43,8 @@ The quiz covers all major WSTG categories with questions randomly distributed ac
 
 ## 🚀 Try It Now
 
-**🔗 [Click Here to Take the Quiz](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/)**
+**🔗 [Click Here to Take the Quiz]([https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/](https://naysrania18.github.io/OWASP-WSTG-Top-10---100-Question-Quiz/))**
 
 > ⚠️ **Replace `YOUR-USERNAME` and `YOUR-REPOSITORY-NAME` with your actual GitHub username and repository name.**
 
 ---
-
-## 🛠️ How to Run Locally
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY-NAME.git
