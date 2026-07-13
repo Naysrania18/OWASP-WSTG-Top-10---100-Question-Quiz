@@ -43,8 +43,14 @@ This is a **100-question interactive quiz** based on the **OWASP Web Security Te
 
 ## 🚀 Try It Now
 
-**🔗 [Click Here to Take the Quiz]([https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/](https://naysrania18.github.io/OWASP-WSTG-Top-10---100-Question-Quiz/))**
+**🔗 [Click Here to Take the Quiz](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/)**
 
 > ⚠️ **Replace `YOUR-USERNAME` and `YOUR-REPOSITORY-NAME` with your actual GitHub username and repository name.**
 
 ---
+
+## 🛠️ How to Run Locally
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY-NAME.git
