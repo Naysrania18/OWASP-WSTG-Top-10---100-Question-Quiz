@@ -1,4 +1,4 @@
-# 🛡️ OWASP WSTG Top 10 Quiz.
+# 🛡️ OWASP WSTG Top 10 Quiz
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=githubpages)](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/)
 [![OWASP](https://img.shields.io/badge/OWASP-WSTG-orange?style=for-the-badge&logo=owasp)](https://owasp.org/www-project-web-security-testing-guide/)
