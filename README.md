@@ -1,48 +1,37 @@
-# 🛡️ OWASP WSTG Top 10 Quiz
+# OWASP WSTG Quiz
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=githubpages)](https://YOUR-USERNAME.github.io/YOUR-REPOSITORY-NAME/)
-[![OWASP](https://img.shields.io/badge/OWASP-WSTG-orange?style=for-the-badge&logo=owasp)](https://owasp.org/www-project-web-security-testing-guide/)
-[![Made with HTML](https://img.shields.io/badge/Made%20with-HTML-red?style=for-the-badge&logo=html5)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+A 100-question browser quiz on web security testing, based on the OWASP Web Security Testing Guide.
 
-## 📖 About This Quiz
+## Overview
 
-This is a **100-question interactive quiz** based on the **OWASP Web Security Testing Guide (WSTG) v4**. It's designed to help security professionals, penetration testers, and students test and reinforce their knowledge of web application security testing methodologies.
+Ten categories with ten questions each, scored instantly with the correct answers shown on request. It is a single static page, so there is nothing to install or sign in to.
 
----
+Live: [naysrania18.github.io/OWASP-WSTG-Top-10---100-Question-Quiz](https://naysrania18.github.io/OWASP-WSTG-Top-10---100-Question-Quiz/)
 
-## 🎯 Key Features
+## Key features
 
-| Feature | Description |
-|---------|-------------|
-| ✅ **100 Questions** | Comprehensive coverage of OWASP WSTG v4 |
-| ✅ **Instant Scoring** | Submit and see your percentage immediately |
-| ✅ **Show Correct Answers** | Learn from mistakes by revealing correct answers |
-| ✅ **Retake Anytime** | Refresh to start over and improve your score |
-| ✅ **No Timer** | Take it at your own pace |
-| ✅ **No Account Required** | Just click and start |
-| ✅ **Mobile Responsive** | Works on all devices |
+- 100 questions, no timer, no account
+- Instant percentage score and optional answer review
+- Responsive layout
 
----
+## Categories
 
-## 📊 Categories Covered
+Information gathering, configuration management, identity management, authentication, authorization, session management, input validation, business logic, client-side testing, API testing.
 
-| Category | Questions |
-|----------|-----------|
-| Information Gathering | 10 |
-| Configuration Management | 10 |
-| Identity Management | 10 |
-| Authentication Testing | 10 |
-| Authorization Testing | 10 |
-| Session Management | 10 |
-| Input Validation | 10 |
-| Business Logic | 10 |
-| Client-Side Testing | 10 |
-| API Testing | 10 |
+## Project structure
 
----
+```
+index.html   page, styles and the questions array
+```
 
-## 🚀 Try It Now
+## Tech stack
 
-**🔗 [Click Here to Take the Quiz](https://naysrania18.github.io/OWASP-WSTG-Top-10---100-Question-Quiz/)**
+HTML, CSS and JavaScript, hosted on GitHub Pages.
 
----
+## Getting started
+
+Open `index.html` in a browser.
+
+## License
+
+No license file yet. Author: [Sandeep Kumar Naysrania](https://github.com/Naysrania18)
